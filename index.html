@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumière | Radical Hospitality</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2d2a26;
+            --accent: #d4af37;
+            --bg-soft: #fcfaf7;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-soft);
+            color: var(--primary);
+            overflow-x: hidden;
+            cursor: none; /* Custom cursor */
+        }
+
+        h1, h2, .serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Custom Cursor */
+        #cursor {
+            width: 20px;
+            height: 20px;
+            background: var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.1s ease;
+        }
+
+        /* Smooth Reveal Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Parallax Background */
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .floating-blob {
+            position: absolute;
+            filter: blur(80px);
+            z-index: -1;
+            border-radius: 50%;
+            animation: drift 20s infinite alternate;
+        }
+
+        @keyframes drift {
+            from { transform: translate(-10%, -10%) scale(1); }
+            to { transform: translate(10%, 10%) scale(1.2); }
+        }
+
+        /* Glassmorphism Cards */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+        }
+
+        /* Image Shimmer Loading Effect */
+        .img-container {
+            background: linear-gradient(90deg, #f0f0f0 25%, #f8f8f8 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Interactive Navigation */
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .btn-lumiere {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .btn-lumiere:hover {
+            letter-spacing: 2px;
+        }
+
+        /* Prevent image clipping on mobile */
+        .discovery-image-container {
+            position: relative;
+            padding-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Custom Cursor -->
+    <div id="cursor"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 px-8 py-6 flex justify-between items-center bg-transparent transition-all duration-500" id="navbar">
+        <div class="text-2xl font-bold tracking-widest serif">LUMIÈRE</div>
+        <div class="hidden md:flex gap-12 text-sm uppercase tracking-widest font-medium">
+            <a href="#" class="relative">The Experience</a>
+            <a href="#" class="relative">Stay</a>
+            <a href="#" class="relative">Wellness</a>
+            <a href="#" class="relative">Contact</a>
+        </div>
+        <button class="px-6 py-2 border border-black text-xs uppercase tracking-tighter hover:bg-black hover:text-white transition-all">Book Now</button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section px-8">
+        <!-- Floating shapes for ambiance -->
+        <div class="floating-blob w-96 h-96 bg-amber-100 top-10 left-10"></div>
+        <div class="floating-blob w-[500px] h-[500px] bg-rose-50 bottom-10 right-10" style="animation-delay: -5s"></div>
+
+        <div class="text-center z-10">
+            <h1 class="text-6xl md:text-9xl mb-6 reveal active">Human by <span class="italic">Design</span></h1>
+            <p class="text-lg md:text-xl max-w-2xl mx-auto font-light leading-relaxed reveal active" style="transition-delay: 0.2s">
+                Experience hospitality that breathes. A sanctuary designed for the soul, where luxury meets the quiet rhythm of nature.
+            </p>
+            <div class="mt-12 reveal active" style="transition-delay: 0.4s">
+                <a href="#discover" class="btn-lumiere bg-stone-900 text-white px-10 py-4 inline-block rounded-full text-sm uppercase tracking-widest">Discover The Retreat</a>
+            </div>
+        </div>
+        
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
+            <span class="text-[10px] uppercase tracking-[0.3em]">Scroll</span>
+            <div class="w-[1px] h-12 bg-black animate-pulse"></div>
+        </div>
+    </section>
+
+    <!-- Discovery Section -->
+    <section id="discover" class="py-32 px-8 max-w-7xl mx-auto overflow-visible">
+        <div class="grid lg:grid-cols-2 gap-20 items-center">
+            <div class="reveal discovery-image-container">
+                <div class="relative img-container rounded-2xl overflow-hidden">
+                    <img 
+                        src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=1000" 
+                        alt="Hospitality" 
+                        class="rounded-2xl grayscale hover:grayscale-0 transition-all duration-1000 w-full object-cover min-h-[400px]"
+                        onerror="this.src='https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&q=80&w=1000'; this.onerror=null;"
+                        onload="this.parentElement.style.animation='none'; this.parentElement.style.background='none';"
+                    >
+                    <!-- Glass Card -->
+                    <div class="lg:absolute lg:-bottom-12 lg:-right-12 mt-6 lg:mt-0 glass-card p-8 rounded-xl max-w-sm z-20 shadow-xl">
+                        <p class="serif italic text-xl text-stone-800">"A space that listens to your presence."</p>
+                    </div>
+                </div>
+            </div>
+            <div class="reveal">
+                <h2 class="text-4xl md:text-5xl mb-8 leading-tight">The Art of <br><span class="text-amber-700">Hospitality</span></h2>
+                <p class="text-gray-600 mb-6 leading-relaxed">
+                    We believe the most profound luxuries are the ones you feel, not just see. From the texture of our linen to the temperature of your morning tea, every detail is orchestrated to align with your natural pace.
+                </p>
+                <div class="flex gap-4 mt-8">
+                    <div class="text-center">
+                        <span class="block text-3xl font-light">42</span>
+                        <span class="text-[10px] uppercase tracking-widest">Bespoke Suites</span>
+                    </div>
+                    <div class="w-[1px] h-12 bg-stone-200 mx-4"></div>
+                    <div class="text-center">
+                        <span class="block text-3xl font-light">08</span>
+                        <span class="text-[10px] uppercase tracking-widest">Healing Rituals</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Grid -->
+    <section class="bg-stone-100 py-32 px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-20 text-center reveal">
+                <h2 class="text-5xl mb-4">Curated Experiences</h2>
+                <p class="text-gray-500 uppercase tracking-widest text-xs">A Symphony of Senses</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass-card p-10 rounded-3xl reveal" style="transition-delay: 0.1s">
+                    <div class="w-12 h-12 bg-amber-50 rounded-full flex items-center justify-center mb-8">
+                        <svg class="w-6 h-6 text-amber-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 5a7 7 0 100 14 7 7 0 000-14z"></path></svg>
+                    </div>
+                    <h3 class="text-2xl mb-4 serif">Morning Solace</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Guided meditation and artisanal breakfasts overlooking the misty valley.</p>
+                </div>
+
+                <div class="glass-card p-10 rounded-3xl reveal" style="transition-delay: 0.2s">
+                    <div class="w-12 h-12 bg-rose-50 rounded-full flex items-center justify-center mb-8">
+                        <svg class="w-6 h-6 text-rose-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                    </div>
+                    <h3 class="text-2xl mb-4 serif">The Spa Ritual</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Indigenous therapies using local botanical oils and ancient pressure points.</p>
+                </div>
+
+                <div class="glass-card p-10 rounded-3xl reveal" style="transition-delay: 0.3s">
+                    <div class="w-12 h-12 bg-stone-100 rounded-full flex items-center justify-center mb-8">
+                        <svg class="w-6 h-6 text-stone-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                    </div>
+                    <h3 class="text-2xl mb-4 serif">Nightly Drift</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Sleep-optimizing turn-down service featuring silk masks and herbal infusions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-20 px-8 border-t border-stone-200">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-10">
+            <div class="serif text-3xl tracking-tighter">LUMIÈRE</div>
+            <div class="flex gap-8 text-[10px] uppercase tracking-widest text-stone-400">
+                <a href="#">Instagram</a>
+                <a href="#">Journal</a>
+                <a href="#">Privacy</a>
+            </div>
+            <div class="text-stone-400 text-xs italic">
+                &copy; 2024 Lumière Collective. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        const links = document.querySelectorAll('a, button');
+        links.forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                cursor.style.transform = 'scale(3)';
+                cursor.style.opacity = '0.3';
+            });
+            link.addEventListener('mouseleave', () => {
+                cursor.style.transform = 'scale(1)';
+                cursor.style.opacity = '1';
+            });
+        });
+
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('bg-white/80', 'backdrop-blur-md', 'py-4', 'shadow-sm');
+                nav.classList.remove('bg-transparent', 'py-6');
+            } else {
+                nav.classList.remove('bg-white/80', 'backdrop-blur-md', 'py-4', 'shadow-sm');
+                nav.classList.add('bg-transparent', 'py-6');
+            }
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            const blobs = document.querySelectorAll('.floating-blob');
+            const x = (e.clientX / window.innerWidth - 0.5) * 40;
+            const y = (e.clientY / window.innerHeight - 0.5) * 40;
+            
+            blobs.forEach(blob => {
+                blob.style.transform = `translate(${x}px, ${y}px)`;
+            });
+        });
+    </script>
+</body>
+</html>
